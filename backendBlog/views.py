@@ -14,11 +14,11 @@ from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.views.generic.base import TemplateView
 
 
-
+#home page
 def index(request):
     return render(request, 'basic.html')
 
-
+#login page
 class BlogLoginView(LoginView):
     template_name = 'backendBlog/login.html'
 
@@ -29,6 +29,9 @@ class BlogLoginView(LoginView):
 #     queryset = Article.objects.filter(status=1).order_by(expression)
 #     template_name = 'backendBlog/article_list.html'
 
+
+
+#view for articles on frontpage and on sidebar (remake after class view)
 def article_list(request):
     expression = '-pub_date'
     article_list = Article.objects.filter(status=1).order_by(expression)
@@ -44,16 +47,11 @@ def article_list(request):
     return render(request, 'backendBlog/article_list.html', context)
 
 
-
-
-
-
-
-
-
 # class ArticleDetail(generic.DetailView):
 #     model = Article
 #     template_name = 'backendBlog/article_detail.html'
+
+#view for article pages (remake after class view)
 
 def article_detail(request, slug):
     article = get_object_or_404(Article, slug=slug)
@@ -78,11 +76,13 @@ def article_detail(request, slug):
 def profile(request):
     return render(request, 'backendBlog/profile_tmp/profile.html')
 
-
+# class for profile logout
 class BlogLogoutView(LoginRequiredMixin, LogoutView):
     template_name = 'backendBlog/profile_tmp/logout.html'
 
 
+
+# class for changing user info
 class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = MainUser
     template_name = 'backendBlog/profile_tmp/change_user_info.html'
@@ -99,11 +99,15 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
             queryset = self.get_queryset()
         return get_object_or_404(queryset, pk=self.user_id)
 
+
+#class for changing passwor
 class MainPasswordChangeView(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
     template_name = 'backendBlog/profile_tmp/password_change.html'
     success_url = reverse_lazy('backendBlog:profile')
     success_message = 'Пароль успешно изменен'
 
+
+#class for user registration
 class RegisterUserView(CreateView):
     model = MainUser
     template_name = 'backendBlog/profile_tmp/register_user.html'
@@ -115,6 +119,7 @@ class RegisterDoneView(TemplateView):
     template_name = 'backendBlog/profile_tmp/register_done.html'
 
 
+#class for deleting user by himself
 class DeleteUserView(LoginRequiredMixin, DeleteView):
     model = MainUser
     template_name = 'backendBlog/profile_tmp/delete_user.html'
@@ -135,7 +140,7 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
         return get_object_or_404(queryset, pk=self.user_id)
 
 
-# views for likes in article 
+# views for likes in article
 
 def like_article(request):
     article = get_object_or_404(Article, id=request.POST.get('article_id'))
@@ -149,7 +154,7 @@ def like_article(request):
     return redirect('backendBlog:article_detail', slug=article.slug)
 
 
-
+# views for adding articles to favorite (same as likes tho)
 def add_favorite(request):
     article = get_object_or_404(Article, id=request.POST.get('article_id'))
     is_favorite = False
@@ -162,15 +167,13 @@ def add_favorite(request):
     return redirect('backendBlog:article_detail', slug=article.slug)
 
 
+#list of categories (no links set on templates)
 def categories_list(request):
     categories = Category.objects.all()
     return render(request, 'backendBlog/categories_list.html', context={'categories' : categories})
 
 
-
-
-
-
+# addig coments by users
 def add_comment(request, slug):
     article = get_object_or_404(Article, slug=slug)
     if request.method == "POST":
