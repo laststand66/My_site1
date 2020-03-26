@@ -135,7 +135,7 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
         return get_object_or_404(queryset, pk=self.user_id)
 
 
-
+# views for likes in article 
 
 def like_article(request):
     article = get_object_or_404(Article, id=request.POST.get('article_id'))
