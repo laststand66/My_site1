@@ -1,0 +1,27 @@
+{% extends "basic.html" %}
+
+{% block content %}
+
+{% for Article in article_list %}
+
+
+
+    <h2 class="name-block">{{ Article.title }}</h2>
+
+    <p class="block-content">
+      {{ Article.overview | truncatewords:30 }}
+    </p>
+
+    <form action="{% url 'backendBlog:article_detail' Article.slug  %}">
+      <button type="submit" class="button-read-more">Читать далее</button>
+    </form>
+
+{% endfor %}
+<main>
+  <div class="side-bar">
+    {% include "backendBlog/sidebar.html" %}
+  </div>
+</main>
+
+
+{% endblock %}

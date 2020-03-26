@@ -1,0 +1,47 @@
+{% extends 'basic.html' %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 card mb-4  mt-3 left  top">
+      <div class="card-body">
+        <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
+        <p class="card-text text-muted">{{ article.categories.all }} | {{ article.pub_date }}</p>
+        <p class="card-text text-muted h6">{{ article.pub_date}} </p>
+        <p class="card-text ">{{ object.content | safe }}</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+<form action="{% url 'backendBlog:like_article' %}" method="post">
+  {% csrf_token %}
+  {% if is_liked %}
+  <button type="submit" name="article_id" value="{{ article.id }}" class="btn btn-primary">Dislike</button>
+  {% else %}
+  <button type="submit" name="article_id" value="{{ article.id }}" class="btn btn-primary">Like</button>
+  {% endif %}
+</form>
+
+<form action="{% url 'backendBlog:add_favorite' %}" method="post">
+  {% csrf_token %}
+  {% if is_favorite %}
+  <button type="submit" name="article_id" value="{{ article.id }}" class="btn btn-primary">Remove from favorite</button>
+  {% else %}
+  <button type="submit" name="article_id" value="{{ article.id }}" class="btn btn-primary">Add to favorite</button>
+  {% endif %}
+</form>
+
+<hr />
+<h1>Комментарии</h1>
+
+  {% for comment in article.comments.all %}
+    <p>{{ comment.created_on }}</p>
+    <p>{{ comment.name }}</p>
+    <p>{{ comment.body }}</p>
+    {% empty %}
+    <p>There is no comments</p>
+  {% endfor %}
+<a href="{% url 'backendBlog:add_comment' slug=article.slug %}">Добавить комментарий</a>
+
+{% endblock content %}

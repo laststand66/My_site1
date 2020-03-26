@@ -1,0 +1,76 @@
+{% load static %}
+
+
+
+<!DOCTYPE html>
+<html lang='en'>
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static '1.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/1.js' %}"></script>
+  </head>
+
+    <body>
+
+
+        <!-- Navigation -->
+        <header>
+          <div class="header-block">
+            <nav>
+              <a href="{% url 'backendBlog:home' %}" class="nav-link">Главная</a>
+              <a href="#part-footer" class="nav-link" name="bottom">О нас</a>
+            </nav>
+            <form >
+              <p class="form-search"><input type="search"  class="area-for-search">
+                <input type="submit" value="Поиск" class="button-search">
+              </p>
+            </form>
+          </div>
+          <div class="header-block-1">
+            {% if user.is_authenticated %}
+            <form action="{% url 'backendBlog:logout' %}">
+              <button type="submit" class="button-reg"> ВЫХОД</button>
+            </form>
+            <form action="{% url 'backendBlog:profile' %}">
+              <button type="submit" class="button-reg"> Личный кабинет</button>
+            </form>
+            {% else %}
+            <form action="{% url 'backendBlog:login' %}">
+              <button type="submit" class="button-reg"> ВХОД</button>
+            </form>
+            <form action="{% url 'backendBlog:register' %}">
+              <button type="submit" class="button-reg">РЕГИСТРАЦИЯ</button>
+            </form>
+            {% endif %}
+          </div>
+        </header>
+
+        <main>
+          <div class="main-content">
+        {% block content %}
+        <!-- Content Goes here -->
+        {% endblock content %}
+          </div>
+
+
+
+
+
+        </main>
+        <!-- Footer -->
+        <footer id="part-footer">
+          <a href="#" name="#bottom"></a>
+          <div class="information">
+            <p>ОАО*****</p>
+            <p>Адрес:</p>
+            <p>Тел.</p>
+            <p>Тел.</p>
+          </div>
+        </footer>
+    </body>
+</html>

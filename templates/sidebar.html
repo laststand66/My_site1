@@ -1,0 +1,35 @@
+{% load static %}
+
+  <div class="select-link">
+    <a>Последние посты</a>
+    <a>Популярные посты</a>
+    <a>Набирающие популярность</a>
+  </div>
+  <div class="side-bar-content">
+    <ul class="side-bar-links ">
+
+      {% for Article in sidebar_list_recent %}
+      <li><a href="{% url 'backendBlog:article_detail' Article.slug  %}">{{ Article.title }}</a></li>
+      {% endfor %}
+
+    </ul>
+    <ul class="side-bar-links side-bar-links-hide ">
+
+      {% for Article in sidebar_list_popular %}
+      <li><a href="{% url 'backendBlog:article_detail' Article.slug  %}">{{ Article.title }}</a></li>
+      {% endfor %}
+
+    </ul>
+    <ul class="side-bar-links side-bar-links-hide">
+      <li><a href="#">333333333</a></li>
+      <li><a href="#">333333333</a></li>
+      <li><a href="#">333333333</a></li>
+      <li><a href="#">333333333</a></li>
+      <li><a href="#">333333333</a></li>
+      <li><a href="#">333333333</a></li>
+      <li><a href="#">333333333</a></li>
+      <li><a href="#">333333333</a></li>
+      <li><a href="#">333333333</a></li>
+      <li><a href="#">333333333</a></li>
+    </ul>
+  </div>

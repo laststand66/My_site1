@@ -1,0 +1,11 @@
+{% load static %}
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Document{% endblock title %}</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <script src="{% static 'js/script.js' %}"></script>
+</head>

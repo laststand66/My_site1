@@ -1,0 +1,25 @@
+{% extends "basic.html" %}
+
+
+{% block title %}Профиль пользователя{% endblock title %}
+
+{% block content %}
+
+<h2>Профиль пользователя {{ user.username }}</h2>
+
+{% if user.first_name and user.last_name %}
+
+<p>
+  Hello, {{ user.first_name }} {{ user.last_name }}!
+</p>.
+
+{% else %}
+
+<p>Hello!</p>
+
+{% endif %}
+<a class="button" href="{% url 'backendBlog:profile_change' %}">Смена личных данных</a>
+<a class="button" href="{% url 'backendBlog:password_change' %}">Смена пароля</a>
+<h3>Избранные посты</h3>
+
+{% endblock content %}

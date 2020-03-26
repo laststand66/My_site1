@@ -1,0 +1,54 @@
+{% extends "basic.html" %}
+{% block title %}Главная{% endblock title %}
+{% block content %}
+
+<main>
+  <div class="main-content">
+
+    <div class="box-for-select">
+     <span>
+       <p class="name-select"><span> По дате: &nbsp</span> </p>
+
+       <!-- <p class="icon-select"><span></span></p> -->
+
+      </span>
+      <option value="">Сначала новые</option>
+      <option value="">Сначала старые</option>
+    </div>
+
+{% for Article in article_list %}
+
+<em>{{ Article.pub_date }}</em>
+<h2 class="name-block">{{ Article.title }}</h2>
+<img src="{{ Article.thumbnail.url }}" alt="" class="image-for-main-content">
+<p class="block-content">
+  {{ Article.overview | truncatewords:30 }}
+</p>
+
+<form action="{% url 'backendBlog:article_detail' Article.slug  %}" class="form-for-read-more">
+  <button type="submit" class="button-read-more"> Читать далее</button>
+</form>
+
+
+    <!-- <h2 class="name-block">{{ Article.title }}</h2>
+
+    <p class="block-content">
+      {{ Article.overview | truncatewords:30 }}
+    </p>
+
+    <form action="{% url 'backendBlog:article_detail' Article.slug  %}">
+      <button type="submit" class="button-read-more">Читать далее</button>
+    </form> -->
+
+{% endfor %}
+</div>
+<div class="side-bar">
+  {% include "sidebar.html" %}
+</div>
+
+
+</main>
+
+
+
+{% endblock %}

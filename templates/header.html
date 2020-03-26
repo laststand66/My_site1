@@ -1,0 +1,35 @@
+{% load static %}
+
+<header>
+  <div class="header-block">
+    <div class="header-block-1">
+      <nav>
+        <a href="{% url 'backendBlog:home' %}" class="nav-link">Главная</a>
+        <a href="#part-footer" class="nav-link" name="bottom">О нас</a>
+
+      <form class="form-for-area-for-search">
+        <input type="search" class="area-for-search">
+        <button type="submit" class="button-search">Поиск</button>
+      </form>
+    </nav>
+    </div>
+    <div class="header-block-2">
+      {% if user.is_authenticated %}
+      <form action="{% url 'backendBlog:logout' %}" class="form-for-button-reg">
+        <button type="submit" class="button-reg"> ВЫХОД</button>
+      </form>
+      <form action="{% url 'backendBlog:profile' %}" class="form-for-button-reg">
+      <button type="submit" class="button-reg-1">МОЙ АККАУНТ</button>
+      </form>
+      {% else %}
+      <form action="{% url 'backendBlog:login' %}" class="form-for-button-reg">
+        <button type="submit" class="button-reg"> ВХОД</button>
+      </form>
+      <form action="{% url 'backendBlog:register' %}" class="form-for-button-reg">
+      <button type="submit" class="button-reg-1">РЕГИСТРАЦИЯ</button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+  <h1 class="type-it">#Back-end</h1>
+</header>

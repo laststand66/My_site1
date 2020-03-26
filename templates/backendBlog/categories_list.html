@@ -1,0 +1,12 @@
+{% extends "basic.html" %}
+
+
+{% block content %}
+
+  <h1>Tags:</h1>
+
+  {% for cat in categories %}
+    <h3>{{ cat.title }}</h3>
+  {% endfor %}
+
+{% endblock %}
